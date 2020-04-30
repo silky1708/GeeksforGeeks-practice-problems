@@ -1,58 +1,62 @@
-import java.util.Queue;
-import java.util.LinkedList;
+/*
+Print the left view of a binary tree with the given root
+e.g.,     3
+         / \
+        4   5
+       / \ / \
+      6  8 N  10
+      In this case print 3 4 6
+      'N' represents a null node in the binary tree.
 
-class Node{
-	Node left;
-	Node right;
-	int data;
-	public Node(int item){
-		data = item;
-		left = null;
-		right = null;
-	}
+
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}*/
+
+//My code below:-
+
+class Tree
+{
+    void leftView(Node root)
+    {
+      
+      Queue<Node> q1 = new LinkedList<Node>();
+      Queue<Node> q2 = new LinkedList<Node>();
+      q1.add(root);
+      boolean flag = true;
+      while(!q1.isEmpty()){
+          Node temp = q1.poll();
+          if(temp!=null){
+                  if(q2.isEmpty() && flag){
+                      System.out.print(temp.data+" ");
+                      flag = false;
+                  }
+                  
+                  if(temp.left!=null){
+                      q2.add(temp.left);
+                  }
+                  if(temp.right!=null){
+                      q2.add(temp.right);
+                  }
+                  if(q1.isEmpty()){
+                      q1 = q2;
+                      q2 = new LinkedList<Node>();
+                      flag = true;
+                  }
+          }
+          else{ 
+          continue;  
+          }
+          
+      }
+      
+    }
 }
-
-class Tree{
-	Node root;
-
-
-	void printLeftView(){
-		Queue<Node> q1 = new Queue<LinkedList>();
-		q1.add(root);
-		Queue<Node> q2 = new Queue<LinkedList>();
-		while(!q1.isEmpty()){
-			if(q2.isEmpty()){
-				Node temp = q1.poll();
-				System.out.print(temp.data+" ");
-			}
-			
-
-			if(temp.left!=null) q2.add(temp.left);
-			if(temp.right!= null) q2.add(temp.right);
-			if(q1.isEmpty()){
-				q1 = q2;
-				q2 = new Queue<LinkedList>();
-			}
-		}
-	}
-
-
-	public static void main(String args[]){
-		Tree tree = new Tree();
-		tree.root = new Node(10);
-		tree.left = new Node(20);
-		tree.right = new Node(30);
-		tree.left.left = new Node(7);
-		tree.left.right = new Node(31);
-		tree.printLeftView();
-	}
-
-}
-
-
-
-
-
-
-
-
