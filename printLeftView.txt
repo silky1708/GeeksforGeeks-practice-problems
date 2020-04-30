@@ -1,0 +1,58 @@
+import java.util.Queue;
+import java.util.LinkedList;
+
+class Node{
+	Node left;
+	Node right;
+	int data;
+	public Node(int item){
+		data = item;
+		left = null;
+		right = null;
+	}
+}
+
+class Tree{
+	Node root;
+
+
+	void printLeftView(){
+		Queue<Node> q1 = new Queue<LinkedList>();
+		q1.add(root);
+		Queue<Node> q2 = new Queue<LinkedList>();
+		while(!q1.isEmpty()){
+			if(q2.isEmpty()){
+				Node temp = q1.poll();
+				System.out.print(temp.data+" ");
+			}
+			
+
+			if(temp.left!=null) q2.add(temp.left);
+			if(temp.right!= null) q2.add(temp.right);
+			if(q1.isEmpty()){
+				q1 = q2;
+				q2 = new Queue<LinkedList>();
+			}
+		}
+	}
+
+
+	public static void main(String args[]){
+		Tree tree = new Tree();
+		tree.root = new Node(10);
+		tree.left = new Node(20);
+		tree.right = new Node(30);
+		tree.left.left = new Node(7);
+		tree.left.right = new Node(31);
+		tree.printLeftView();
+	}
+
+}
+
+
+
+
+
+
+
+
